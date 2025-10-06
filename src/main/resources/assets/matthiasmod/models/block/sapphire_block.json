@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "matthiasmod:block/sapphire_block"
+  }
+}

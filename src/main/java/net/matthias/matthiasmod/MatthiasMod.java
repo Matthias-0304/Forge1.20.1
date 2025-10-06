@@ -1,6 +1,7 @@
 package net.matthias.matthiasmod;
 
 import com.mojang.logging.LogUtils;
+import net.matthias.matthiasmod.block.ModBlocks;
 import net.matthias.matthiasmod.item.ModCreativeModeTabs;
 import net.matthias.matthiasmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,6 +31,7 @@ public class MatthiasMod
 
         ModCreativeModeTabs.register(modEventBus);
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
