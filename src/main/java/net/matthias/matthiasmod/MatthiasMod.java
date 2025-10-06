@@ -1,6 +1,10 @@
 package net.matthias.matthiasmod;
 
 import com.mojang.logging.LogUtils;
+import net.matthias.matthiasmod.item.ModCreativeModeTabs;
+import net.matthias.matthiasmod.item.ModItems;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -14,7 +18,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 //TESTPUSH
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(MatthiasMod.MOD_ID)
 public class MatthiasMod
 {
@@ -24,6 +27,10 @@ public class MatthiasMod
     public MatthiasMod(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
+        ModCreativeModeTabs.register(modEventBus);
+        ModItems.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
@@ -37,7 +44,10 @@ public class MatthiasMod
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.SAPPHIRE);
+            event.accept(ModItems.RAW_SAPPHIRE);
+        }
     }
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
